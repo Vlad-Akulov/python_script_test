@@ -33,24 +33,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-    - name: Log in to GHCR
-      uses: docker/login-action@v3
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Install pack
-      run: |
-        PACK_VERSION=0.33.2
-        curl -sSL \
-          https://github.com/buildpacks/pack/releases/download/v${PACK_VERSION}/pack-v${PACK_VERSION}-linux.tgz \
-          | tar -xz
-        sudo mv pack /usr/local/bin/pack
+      - name: Install pack
+        run: |
+          PACK_VERSION=0.33.2
+          curl -sSL \
+            https://github.com/buildpacks/pack/releases/download/v${PACK_VERSION}/pack-v${PACK_VERSION}-linux.tgz \
+            | tar -xz
+          sudo mv pack /usr/local/bin/pack
 
-    - name: Build and push image
-      run: |
-        pack build ghcr.io/${{ github.repository }}:latest \
-          --builder paketobuildpacks/builder:base \
-          --publish
-
+      - name: Build and push image
+        run: |
+          pack build ghcr.io/${{ github.repository }}:latest \
+            --builder paketobuildpacks/builder:base \
+            --publish
