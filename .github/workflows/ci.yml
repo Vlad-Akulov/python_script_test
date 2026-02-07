@@ -50,6 +50,8 @@ jobs:
 
       - name: Build and push image
         run: |
-          pack build ghcr.io/${{ github.repository }}:latest \
+          IMAGE=$(echo ghcr.io/${{ github.repository }} | tr '[:upper:]' '[:lower:]')
+          pack build ${IMAGE}:latest \
             --builder paketobuildpacks/builder:base \
             --publish
+
