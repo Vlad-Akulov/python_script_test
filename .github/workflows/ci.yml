@@ -42,8 +42,8 @@ jobs:
 
       - name: Install pack
         run: |
-          curl -sSL https://github.com/buildpacks/pack/releases/latest/download/pack-linux.tgz \
-          | tar -xz -C /usr/local/bin
+          curl -sSL https://raw.githubusercontent.com/buildpacks/pack/main/install.sh | bash
+
 
       - name: Build and push image
         run: |
